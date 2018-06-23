@@ -14,8 +14,11 @@
     "@fortawesome/react-fontawesome": "0.0.20",
     "concurrently": "^3.6.0",
     "fontawesome": "^4.7.2",
+    "graceful-fs": "^4.1.11",
     "grunt": "^1.0.3",
     "mailhog": "^1.4.0",
+    "minimatch": "^3.0.4",
+    "npm": "^6.1.0",
     "react": "^16.4.1"
   },
   "devDependencies": {

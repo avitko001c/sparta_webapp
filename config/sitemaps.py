@@ -1,7 +1,7 @@
-from django.contrib importfrom .sitemaps
+from django.contrib import sitemaps
 from django.urls import reverse
 
-class StaticViewSitemapfrom .sitemaps.Sitemap):
+class StaticViewSitemap(sitemaps.Sitemap):
 	priority = 0.5
 	changefreq = 'daily'
 

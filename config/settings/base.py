@@ -76,6 +76,10 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.bitbucket',
+    'allauth.socialaccount.providers.slack',
+    'allauth.socialaccount.providers.paypal',
+    'allauth.socialaccount.providers.amazon',
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -86,6 +90,20 @@ LOCAL_APPS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = JET_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# SOCIALACCOUNT PROVIDERS
+# ------------------------------------------------------------------------------
+# http://django-allauth.readthedocs.io/en/latest/providers.html
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+    }
+}
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------

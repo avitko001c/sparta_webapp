@@ -4,6 +4,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap
+
+sitemaps = {
+	"static": StaticViewSitemap,
+}
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -12,6 +18,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="pages/about.html"),
         name="about",
     ),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
 
     # API's
     path(
