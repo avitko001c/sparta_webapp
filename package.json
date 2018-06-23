@@ -1,0 +1,66 @@
+{
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avitko001c/KeyManager"
+  },
+  "license": "UNLICENSED",
+  "name": "sparta_webapp",
+  "version": "0.1.0",
+  "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-free-regular": "^5.0.13",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/react-fontawesome": "0.0.20",
+    "concurrently": "^3.6.0",
+    "fontawesome": "^4.7.2",
+    "grunt": "^1.0.3",
+    "mailhog": "^1.4.0",
+    "react": "^16.4.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.14.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-pixrem": "^1.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.7",
+    "run-sequence": "^2.1.1"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "dev": "gulp",
+    "setup": "npm install && pip install -r requirements.txt && npm run migrate && ./manage.py loaddata sites && npm run createsuperuser",
+    "createsuperuser": "./manage.py createsuperuser",
+    "runinstall": "npm install",
+    "start": "npm run sparta_webapp",
+    "startover": "ls ./sparta_webapp.db &> /dev/null && rm -rf sparta_webapp.db && npm run clean",
+    "migrate": "./manage.py makemigrations && ./manage.py migrate",
+    "clean": "ls ./node_modules &> /dev/null && rm -rf ./node_modules && rm -rf static/dist",
+    "prune": "rm -rf static/dist && mkdir -p static/dist/js && mkdir -p static/dist/css && mkdir -p static/dist/images",
+    "copy:images": "cp -r static/src/images/* static/dist/images/ 2>/dev/null || :",
+    "optimize:js": "uglifyjs static/dist/js/site.js -m -c warnings=false -o static/dist/js/site.js",
+    "optimize:css": "cssnano static/dist/css/app.css static/dist/css/app.css",
+    "optimize": "npm run optimize:js && npm run optimize:css",
+    "watch:test": "onchange static/src/js/**/*.js -- npm run test",
+    "watch:lint": "onchange static/src/js/**/*.js -- npm run lint",
+    "watch:js": "watchify -t [ babelify --presets [ env ] ] -t envify static/src/js/index.js -o 'exorcist static/dist/js/site.js.map > static/dist/js/site.js' -dv",
+    "watch:css": "node-sass static/src/scss/index.scss static/dist/css/app.css --watch -r",
+    "build": "npm run prune && concurrently \"npm run build:js\" \"npm run build:css\" \"npm run copy:images\" && npm run optimize",
+    "watch": "npm run prune && npm run copy:images && npm run build:css && concurrently --raw \"npm run watch:lint\" \"npm run watch:js\" \"npm run watch:css\"",
+    "sparta_webapp:browser-sync": "browser-sync start --no-open --proxy localhost:8000 --files \"static/dist/chosen/*.js, static/dist/chosen/*.css, static/dist/js/*.js, static/dist/css/*.css\"",
+    "sparta_webapp": "concurrently --raw \"./manage.py runserver\" \"npm run sparta_webapp:browser-sync\" \"npm run watch\"",
+    "lint": "eslint static/src/**/**/*.js",
+    "test": "mocha --recursive --compilers js:babel-register static/src/tests/index.js",
+    "compile": "NODE_ENV=production npm run clean && concurrently \"npm run copy:images\" \"npm run build:js\" \"npm run build:css\"",
+    "heroku-postbuild": "npm run compile && npm run optimize"
+  }
+}
