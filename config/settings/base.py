@@ -2,6 +2,8 @@
 Base settings to build other settings files upon.
 """
 
+import os
+import datetime
 import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (sparta_webapp/config/settings/base.py - 3 = sparta_webapp/)
@@ -57,6 +59,13 @@ JET_APPS = [
     'jet',
 ]
 
+TEMPLATE_APPS = [
+    'bootstrap_toolkit',
+    'bootstrap4',
+    'bootstrapform',
+    'djedi',
+]
+
 DJANGO_APPS = [
     'django_assets',
     'django_tables2',
@@ -85,11 +94,11 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'sparta_webapp.users.apps.UsersAppConfig',
-    'sparta_webapp.apis.apps.ApiAppConfig',
     # Your stuff: custom apps go here
+    'sparta_webapp.apis.apps.ApiAppConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = JET_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = JET_APPS + DJANGO_APPS + TEMPLATE_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # SOCIALACCOUNT PROVIDERS
 # ------------------------------------------------------------------------------
@@ -102,7 +111,65 @@ SOCIALACCOUNT_PROVIDERS = {
             'repo',
             'read:org',
         ],
+    },
+    'paypal': {
+        'SCOPE': ['openid', 'email'],
+        'MODE': 'live',
     }
+}
+
+# REST Framework
+# ------------------------------------------------------------------------------
+# http://www.django-rest-framework.org/
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ),
+}
+
+# JWT_AUTH Settings
+# ------------------------------------------------------------------------------
+# http://getblimp.github.io/django-rest-framework-jwt/
+
+JWT_AUTH = {
+    "JWT_ENCODE_HANDLER":
+    "rest_framework_jwt.utils.jwt_encode_handler",
+
+    "JWT_DECODE_HANDLER":
+    "rest_framework_jwt.utils.jwt_decode_handler",
+
+    "JWT_PAYLOAD_HANDLER":
+    "rest_framework_jwt.utils.jwt_payload_handler",
+
+    "JWT_PAYLOAD_GET_USER_ID_HANDLER":
+    "rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler",
+
+    "JWT_RESPONSE_PAYLOAD_HANDLER":
+    "rest_framework_jwt.utils.jwt_response_payload_handler",
+
+    "JWT_SECRET_KEY": env('DJANGO_SECRET_KEY', default='CitKtCxzWd8tMP3v59FZrWdheZoU519tzoW7b52WdDKasn9JZEl5qJfKYnx3RJlg'),
+    "JWT_GET_USER_SECRET_KEY": None,
+    "JWT_PUBLIC_KEY": None,
+    "JWT_PRIVATE_KEY": None,
+    "JWT_ALGORITHM": "HS256",
+    "JWT_VERIFY": True,
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LEEWAY": 0,
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=900),
+    "JWT_AUDIENCE": None,
+    "JWT_ISSUER": None,
+
+    "JWT_ALLOW_REFRESH": False,
+    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=7),
+
+    "JWT_AUTH_HEADER_PREFIX": "JWT",
+    "JWT_AUTH_COOKIE": "AuthToken",
 }
 
 # MIGRATIONS
@@ -196,6 +263,8 @@ TEMPLATES = [
     {
     # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    # https://bitbucket.org/tkhyn/djinga
+    #'BACKEND': 'djinga.backends.djinga.DjingaTemplates',
     # https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
     'DIRS': [
         str(APPS_DIR.path('templates')),
@@ -205,20 +274,24 @@ TEMPLATES = [
         'debug': DEBUG,
         # https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
         # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
+        #'load_from': ('sparta_webapp.templatetags.djingatags',),
         'loaders': [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
+            'apptemplates.Loader',
+            'django.template.loaders.filesystem.Loader',
+            'django.template.loaders.app_directories.Loader',
+            'admin_tools.template_loaders.Loader',
         ],
         # https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
         'context_processors': [
-        'django.template.context_processors.debug',
-        'django.template.context_processors.request',
-        'django.contrib.auth.context_processors.auth',
-        'django.template.context_processors.i18n',
-        'django.template.context_processors.media',
-        'django.template.context_processors.static',
-        'django.template.context_processors.tz',
-        'django.contrib.messages.context_processors.messages',
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.template.context_processors.i18n',
+            'django.template.context_processors.media',
+            'django.template.context_processors.static',
+            'django.template.context_processors.tz',
+            'django.contrib.messages.context_processors.messages',
+            'sparta_webapp.context_processors.settings',
         ],
     },
     },
@@ -238,6 +311,7 @@ FIXTURE_DIRS = (
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 DEFAULT_FROM_EMAIL = 'andrewvitko@gmail.com'
+CONTACT_EMAIL = 'andrewvitko@gmail.com'
 
 # ADMIN
 # ------------------------------------------------------------------------------
@@ -284,34 +358,34 @@ SOCIALACCOUNT_ADAPTER = 'sparta_webapp.users.adapters.SocialAccountAdapter'
 # ------------------------------------------------------------------------------
 JET_THEMES = [
     {
-    'theme': 'default', # theme folder name
-    'color': '#47bac1', # color of the theme's button in user menu
-    'title': 'Default' # theme title
+       'theme': 'default', # theme folder name
+       'color': '#47bac1', # color of the theme's button in user menu
+       'title': 'Default' # theme title
     },
     {
-    'theme': 'green',
-    'color': '#44b78b',
-    'title': 'Green'
+       'theme': 'green',
+       'color': '#44b78b',
+       'title': 'Green'
     },
     {
-    'theme': 'light-green',
-    'color': '#2faa60',
-    'title': 'Light Green'
+       'theme': 'light-green',
+       'color': '#2faa60',
+       'title': 'Light Green'
     },
     {
-    'theme': 'light-violet',
-    'color': '#a464c4',
-    'title': 'Light Violet'
+       'theme': 'light-violet',
+       'color': '#a464c4',
+       'title': 'Light Violet'
     },
     {
-    'theme': 'light-blue',
-    'color': '#5EADDE',
-    'title': 'Light Blue'
+       'theme': 'light-blue',
+       'color': '#5EADDE',
+       'title': 'Light Blue'
     },
     {
-    'theme': 'light-gray',
-    'color': '#222',
-    'title': 'Light Gray'
+       'theme': 'light-gray',
+       'color': '#222',
+       'title': 'Light Gray'
     }
 ]
 

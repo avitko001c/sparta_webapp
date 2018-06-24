@@ -40,8 +40,9 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "dev": "gulp",
+    "dev": "npm run celery && gulp",
     "setup": "npm install && pip install -r requirements.txt && npm run migrate && ./manage.py loaddata sites && npm run createsuperuser",
+    "celery": "celery -A sparta_webapp.taskapp worker -l info &",
     "createsuperuser": "./manage.py createsuperuser",
     "runinstall": "npm install",
     "start": "npm run sparta_webapp",
