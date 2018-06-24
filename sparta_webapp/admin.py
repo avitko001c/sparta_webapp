@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from .models import Role, Profile, UserKey
-from django.db importfrom .models
+from .models import Role, UserKey
+from django.db import models
 from django.contrib import admin
-from django.contrib.authfrom .models import User
+from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from djangofrom .utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from .utils import normalize_user_key as normalize
 from .models import RSSDashboardModule
 
@@ -26,10 +26,10 @@ class UserKeyInLine(admin.TabularInline):
 		'created',
 		'last_modified',
 	]
-	searchfrom .fields = [
+	searchfields = [
 		'user__username',
 	]
-	readonlyfrom .fields = [
+	readonlyfields = [
 		'keytype',
 		'fingerprint',
 		'created',
@@ -57,10 +57,10 @@ class UserKeyAdmin(admin.ModelAdmin):
 		'created',
 		'last_modified',
 	]
-	searchfrom .fields = [
+	searchfields = [
 		'user__username',
 	]
-	readonlyfrom .fields = [
+	readonlyfields = [
 		'keytype',
 		'fingerprint',
 		'created',
@@ -90,7 +90,7 @@ class CustomUserAdmin(UserAdmin):
 		return True
 
 class RoleAdmin(admin.ModelAdmin):
-from .fields = ['user_role']
+    fields = ['user_role']
 	list_display = ['user_role']
 	list_selected_related = ('user_role')
 	model = Role
