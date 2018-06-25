@@ -9,13 +9,8 @@ from account.signals import user_sign_up_attempt, user_signed_up
 from account.signals import user_login_attempt, user_logged_in
 from from .models import Profile
 
-from eventlogfrom .models import log
+from eventlog.models import log
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-	if created:
-		Profile.objects.create(user=instance)
-	instance.profile.save()
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

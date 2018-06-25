@@ -6,20 +6,20 @@ Form Widget classes specific to the Django admin site.
 
 import copy
 
-from django importfrom .forms
+from django import forms
 from django.core.exceptions import ValidationError
-from django.dbfrom .models.deletion import CASCADE
+from django.db.models.deletion import CASCADE
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from djangofrom .utils import six
-from djangofrom .utils.encoding import force_text
-from djangofrom .utils.html import smart_urlquote
-from djangofrom .utils.safestring import mark_safe
-from djangofrom .utils.text import Truncator
-from djangofrom .utils.translation import ugettext as _
+from django.utils import six
+from django.utils.encoding import force_text
+from django.utils.html import smart_urlquote
+from django.utils.safestring import mark_safe
+from django.utils.text import Truncator
+from django.utils.translation import ugettext as _
 
 
-class FilteredSelectMultiplefrom .forms.SelectMultiple):
+class FilteredSelectMultiple(forms.SelectMultiple):
 	"""
 	A SelectMultiple with a JavaScript filter interface.
 
@@ -29,7 +29,7 @@ class FilteredSelectMultiplefrom .forms.SelectMultiple):
 	@property
 	def media(self):
 		js = ["core.js", "SelectBox.js", "SelectFilter2.js"]
-		returnfrom .forms.Media(js=["admin/js/%s" % path for path in js])
+		return forms.Media(js=["admin/js/%s" % path for path in js])
 
 	def __init__(self, verbose_name, is_stacked, attrs=None, choices=()):
 		self.verbose_name = verbose_name
@@ -46,11 +46,11 @@ class FilteredSelectMultiplefrom .forms.SelectMultiple):
 		return context
 
 
-class AdminDateWidgetfrom .forms.DateInput):
+class AdminDateWidget(forms.DateInput):
 	@property
 	def media(self):
 		js = ["calendar.js", "admin/DateTimeShortcuts.js"]
-		returnfrom .forms.Media(js=["admin/js/%s" % path for path in js])
+		return forms.Media(js=["admin/js/%s" % path for path in js])
 
 	def __init__(self, attrs=None, format=None):
 		final_attrs = {'class': 'vDateField', 'size': '10'}
@@ -59,11 +59,11 @@ class AdminDateWidgetfrom .forms.DateInput):
 		super(AdminDateWidget, self).__init__(attrs=final_attrs, format=format)
 
 
-class AdminTimeWidgetfrom .forms.TimeInput):
+class AdminTimeWidget(forms.TimeInput):
 	@property
 	def media(self):
 		js = ["calendar.js", "admin/DateTimeShortcuts.js"]
-		returnfrom .forms.Media(js=["admin/js/%s" % path for path in js])
+		return forms.Media(js=["admin/js/%s" % path for path in js])
 
 	def __init__(self, attrs=None, format=None):
 		final_attrs = {'class': 'vTimeField', 'size': '8'}
@@ -72,7 +72,7 @@ class AdminTimeWidgetfrom .forms.TimeInput):
 		super(AdminTimeWidget, self).__init__(attrs=final_attrs, format=format)
 
 
-class AdminSplitDateTimefrom .forms.SplitDateTimeWidget):
+class AdminSplitDateTime(forms.SplitDateTimeWidget):
 	"""
 	A SplitDateTime Widget that has some admin-specific styling.
 	"""
@@ -82,7 +82,7 @@ class AdminSplitDateTimefrom .forms.SplitDateTimeWidget):
 		widgets = [AdminDateWidget, AdminTimeWidget]
 		# Note that we're calling MultiWidget, not SplitDateTimeWidget, because
 		# we want to define widgets.
-	from .forms.MultiWidget.__init__(self, widgets, attrs)
+		forms.MultiWidget.__init__(self, widgets, attrs)
 
 	def get_context(self, name, value, attrs):
 		context = super(AdminSplitDateTime, self).get_context(name, value, attrs)
@@ -91,11 +91,11 @@ class AdminSplitDateTimefrom .forms.SplitDateTimeWidget):
 		return context
 
 
-class AdminRadioSelectfrom .forms.RadioSelect):
+class AdminRadioSelect(forms.RadioSelect):
 	template_name = 'admin/widgets/radio.html'
 
 
-class AdminFileWidgetfrom .forms.ClearableFileInput):
+class AdminFileWidget(forms.ClearableFileInput):
 	template_name = 'admin/widgets/clearable_file_input.html'
 
 
@@ -121,7 +121,7 @@ def url_params_from_lookup_dict(lookups):
 	return params
 
 
-class ForeignKeyRawIdWidgetfrom .forms.TextInput):
+class ForeignKeyRawIdWidget(forms.TextInput):
 	"""
 	A Widget for displaying ForeignKeys in the "raw_id" interface rather than
 	in a <select> box.
@@ -167,7 +167,7 @@ class ForeignKeyRawIdWidgetfrom .forms.TextInput):
 		return url_params_from_lookup_dict(limit_choices_to)
 
 	def url_parameters(self):
-		from django.contrib.adminfrom .views.main import TO_FIELD_VAR
+		from django.contrib.admin.views.main import TO_FIELD_VAR
 		params = self.base_url_parameters()
 		params.update({TO_FIELD_VAR: self.rel.get_related_field().name})
 		return params
@@ -223,7 +223,7 @@ class ManyToManyRawIdWidget(ForeignKeyRawIdWidget):
 		return ','.join(force_text(v) for v in value) if value else ''
 
 
-class RelatedFieldWidgetWrapperfrom .forms.Widget):
+class RelatedFieldWidgetWrapper(forms.Widget):
 	"""
 	This class is a wrapper to a given widget to add the add icon for the
 	admin interface.
@@ -271,7 +271,7 @@ class RelatedFieldWidgetWrapperfrom .forms.Widget):
 					current_app=self.admin_site.name, args=args)
 
 	def get_context(self, name, value, attrs):
-		from django.contrib.adminfrom .views.main import IS_POPUP_VAR, TO_FIELD_VAR
+		from django.contrib.admin.views.main import IS_POPUP_VAR, TO_FIELD_VAR
 		rel_opts = self.rel.model._meta
 		info = (rel_opts.app_label, rel_opts.model_name)
 		self.widget.choices = self.choices
@@ -315,7 +315,7 @@ class RelatedFieldWidgetWrapperfrom .forms.Widget):
 		return self.widget.id_for_label(id_)
 
 
-class AdminTextareaWidgetfrom .forms.Textarea):
+class AdminTextareaWidget(forms.Textarea):
 	def __init__(self, attrs=None):
 		final_attrs = {'class': 'vLargeTextField'}
 		if attrs is not None:
@@ -323,7 +323,7 @@ class AdminTextareaWidgetfrom .forms.Textarea):
 		super(AdminTextareaWidget, self).__init__(attrs=final_attrs)
 
 
-class AdminTextInputWidgetfrom .forms.TextInput):
+class AdminTextInputWidget(forms.TextInput):
 	def __init__(self, attrs=None):
 		final_attrs = {'class': 'vTextField'}
 		if attrs is not None:
@@ -331,7 +331,7 @@ class AdminTextInputWidgetfrom .forms.TextInput):
 		super(AdminTextInputWidget, self).__init__(attrs=final_attrs)
 
 
-class AdminEmailInputWidgetfrom .forms.EmailInput):
+class AdminEmailInputWidget(forms.EmailInput):
 	def __init__(self, attrs=None):
 		final_attrs = {'class': 'vTextField'}
 		if attrs is not None:
@@ -339,7 +339,7 @@ class AdminEmailInputWidgetfrom .forms.EmailInput):
 		super(AdminEmailInputWidget, self).__init__(attrs=final_attrs)
 
 
-class AdminURLFieldWidgetfrom .forms.URLInput):
+class AdminURLFieldWidget(forms.URLInput):
 	template_name = 'admin/widgets/url.html'
 
 	def __init__(self, attrs=None):
@@ -356,7 +356,7 @@ class AdminURLFieldWidgetfrom .forms.URLInput):
 		return context
 
 
-class AdminIntegerFieldWidgetfrom .forms.NumberInput):
+class AdminIntegerFieldWidget(forms.NumberInput):
 	class_name = 'vIntegerField'
 
 	def __init__(self, attrs=None):

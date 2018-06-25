@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from sparta_webapp.users.models import User, UserKey, Role
-from .utils import normalize_user_key as normalize
+from config.utils import normalize_user_key as normalize
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -110,7 +110,7 @@ class CustomUserAdmin(AuthUserAdmin):
     add_form = MyUserCreationForm
     fieldsets = (('User Profile', {'fields': ('name', 'location', 'company', 'birthdate')}),) + AuthUserAdmin.fieldsets
     list_display = (
-        'username', 'name', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff', 'get_location')
+        'username', 'name', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
     search_fields = ['name', 'email']
 
     def get_inline_instances(self, request, obj=None):

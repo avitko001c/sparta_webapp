@@ -96,6 +96,7 @@ LOCAL_APPS = [
     'sparta_webapp.users.apps.UsersAppConfig',
     # Your stuff: custom apps go here
     'sparta_webapp.apis.apps.ApiAppConfig',
+    'sparta_webapp.eventlog.apps.EventLogAppConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = JET_APPS + DJANGO_APPS + TEMPLATE_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -395,5 +396,10 @@ JET_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultIndexDashboard'
 
 JET_APP_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultAppIndexDashboard'
 
-# Your stuff...
+# UserKey Values
 # ------------------------------------------------------------------------------
+SSHKEY_ALLOW_EDIT = True
+
+SSHKEY_AUTHORIZED_KEYS_OPTIONS = ""
+
+DEFAULT_HASH = "md5"

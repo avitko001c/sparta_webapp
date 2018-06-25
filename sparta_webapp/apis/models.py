@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
-from django.core.exceptions import ValidationError
-from django.dispatch import receiver
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import ugettext_lazy as _
-from .utils import PublicKeyParseError, pubkey_parse
 import uuid
-import django_tables2 as tables
 
 
 @python_2_unicode_compatible
@@ -33,8 +26,8 @@ class APIKey(models.Model):
 
 @python_2_unicode_compatible
 class AbstractUserAWSKey(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=True,
-                             on_delete=models.CASCADE, related_name='userkeys')
+    user = models.ForeignKey(User, db_index=True,
+                             on_delete=models.CASCADE, related_name='userawskeys')
     accesskey_id = models.CharField(max_length=20, blank=True)
     accesskey_secret = models.CharField(max_length=40, blank=True)
     account = models.CharField(max_length=32, blank=True, help_text="Account For Key, e.g. 'prod', 'non-prod'")
@@ -52,10 +45,26 @@ class AbstractUserAWSKey(models.Model):
         if not exclude or 'account' not in exclude:
             self.account = self.account.strip()
             if not self.account:
-                raise ValidationError({'account': ["This field is required."]})
+                self.account = "default"
 
-    def clean(self):
-        self.accesskey_id = self.accesskey_id.strip()
-        if not self.accesskey_id:
+
+    def clean(self, hash=None):
+        import hashlib
+        self.accesskey_secret = self.accesskey_secret.strip()
+        if not self.accesskey_secret:
             return
-        self.fingerprint = pubkey.fingerprint()
+        if hash is None:
+            hash = settings.DEFAULT_HASH
+        if hash in ('md5', 'legacy'):
+            fp = hashlib.md5(self.accesskey_secret).hexdigest()
+            fp = ':'.join(a + b for a, b in zip(fp[::2], fp[1::2]))
+            if hash == 'md5':
+                self.fingerprint = 'MD5:' + fp
+            else:
+                self.fingerprint = fp
+        elif hash == 'sha256':
+            fp = hashlib.sha256(self.accesskey_secret).digest()
+            fp = base64.b64encode(fp).decode('ascii').rstrip('=')
+            self.fingerprint = 'SHA256:' + fp
+        else:
+            raise ValueError('Unknown hash type: {}'.format(hash))
