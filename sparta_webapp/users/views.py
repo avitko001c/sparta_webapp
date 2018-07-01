@@ -1,13 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
-
+from django.forms import modelform_factory
+from .widgets import CalendarWidget
 from .models import User
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
     # These next two lines tell the view to index lookups by username
+    queryset = User.objects.all()
     slug_field = "username"
     slug_url_kwarg = "username"
 
@@ -21,12 +23,14 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
-    fields = ["name"]
+    #fields = ["name", "location", "company", "birthdate"]
+    template_name_suffix = '_update_form'
+    
+    form_class = modelform_factory(User, fields=('name', 'location', 'company', 'birthdate'),
+                   widgets={'birthdate': CalendarWidget()}
+                   )
 
-    # we already imported User in the view code above, remember?
     model = User
-
-    # send the user back to their own page after a successful update
 
     def get_success_url(self):
         return reverse("users:detail", kwargs={"username": self.request.user.username})

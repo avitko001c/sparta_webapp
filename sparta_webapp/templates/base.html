@@ -26,6 +26,7 @@
     <!-- This file stores project-specific CSS -->
     
     <link href="{% static 'css/project.min.css' %}" rel="stylesheet">
+    <link href="{% static 'datepicker/css/datepicker.css' %}" rel="stylesheet">
     
     
     {% endblock %}
@@ -53,6 +54,9 @@
               <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}
                 <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'userkey_list' %}">{% trans "SSH Keys" %}</a>
               </li>
               <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}
@@ -83,7 +87,7 @@
       {% endif %}
 
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+	{% include "pages/home1.html" %}         
       {% endblock content %}
 
     </div> <!-- /container -->
@@ -106,6 +110,7 @@
       <!-- place project specific Javascript in this file -->
       
       <script src="{% static 'js/project.js' %}"></script>
+      <script src="{% static 'datepicker/js/bootstrap-datepicker.js' %}"></script>
       
 
     {% endblock javascript %}

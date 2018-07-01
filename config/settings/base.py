@@ -58,14 +58,12 @@ JET_APPS = [
     'jet.dashboard',
     'jet',
 ]
-
 TEMPLATE_APPS = [
     'bootstrap_toolkit',
     'bootstrap4',
     'bootstrapform',
     'djedi',
 ]
-
 DJANGO_APPS = [
     'django_assets',
     'django_tables2',
@@ -84,22 +82,28 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.bitbucket',
-    'allauth.socialaccount.providers.slack',
-    'allauth.socialaccount.providers.paypal',
-    'allauth.socialaccount.providers.amazon',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_bootstrap_base_template',
+    'django_addview',
 ]
 LOCAL_APPS = [
     'sparta_webapp.users.apps.UsersAppConfig',
     # Your stuff: custom apps go here
     'sparta_webapp.apis.apps.ApiAppConfig',
     'sparta_webapp.eventlog.apps.EventLogAppConfig',
+    'sparta_webapp.dayslog.apps.DaysLogAppConfig',
 ]
+SOCIAL_APPS = [
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.bitbucket',
+    'allauth.socialaccount.providers.slack',
+    'allauth.socialaccount.providers.paypal',
+    'allauth.socialaccount.providers.amazon',
+]
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = JET_APPS + DJANGO_APPS + TEMPLATE_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = JET_APPS + DJANGO_APPS + TEMPLATE_APPS + THIRD_PARTY_APPS + LOCAL_APPS + SOCIAL_APPS
 
 # SOCIALACCOUNT PROVIDERS
 # ------------------------------------------------------------------------------
@@ -117,6 +121,21 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['openid', 'email'],
         'MODE': 'live',
     }
+}
+
+ACCOUNT_FORMS = {
+    'login': 'allauth.account.forms.LoginForm',
+    'signup': 'allauth.account.forms.SignupForm',
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'allauth.account.forms.ChangePasswordForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'reset_password': 'allauth.account.forms.ResetPasswordForm',
+    'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+}
+
+SOCIALACCOUNT_FORMS = {
+    'login': 'allauth.socialaccount.forms.DisconnectForm',
+    'signup': 'allauth.socialaccount.forms.SignupForm',
 }
 
 # REST Framework
@@ -403,3 +422,10 @@ SSHKEY_ALLOW_EDIT = True
 SSHKEY_AUTHORIZED_KEYS_OPTIONS = ""
 
 DEFAULT_HASH = "md5"
+
+# Django-Kong Values
+# ------------------------------------------------------------------------------
+# https://github.com/vikingco/django-kong-admin
+
+KONG_ADMIN_URL = 'http://localhost:8001'
+KONG_ADMIN_SIMULATOR = False 

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap4 %} 
+
+{% block body_class %}account account-profile{% endblock %}
+{% block styles %}
+    <link href="{% static "css/app.css" %}" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{% static "fontawesome/svg-with-js/css/fa-svg-with-js.css" %}" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-datepicker3.standalone.css" %}" type="text/css" media="all"/>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "js/jquery.min.js" %}" type="text/javascript"></script>
+    <script src="{% static "fontawesome/svg-with-js/js/fontawesome-all.js" %}"></script>
+    <script type="text/javascript" src="{% static "bootstrap/js/bootstrap-datepicker.js" %}"></script>
+
+	<script>
+		$('form input').datepicker({
+		        todayBtn: "linked",
+		        calendarWeeks: true,
+		        todayHighlight: true,
+		        beforeShowDay: function(date){
+		                      if (date.getMonth() == (new Date()).getMonth())
+		                        switch (date.getDate()){
+		                          case 4:
+		                            return {
+		                              tooltip: 'Example tooltip',
+		                              classes: 'active'
+		                            };
+		                          case 8:
+		                            return false;
+		                          case 12:
+		                            return "green";
+		                      }
+		                    },
+		        toggleActive: true,
+		        defaultViewDate: { year: 1977, month: 04, day: 25 }
+	    });
+	</script>
+
+{% endblock %}
+
+{% block head_title %}
+{% trans "Edit Profile" %}
+{% endblock %}
+
+{% block extra_head_base %} 
+{% endblock %}
+
+{% block content %}
+
+    <form method="POST" action="{% url "users:update" %}">
+        {% csrf_token %}
+        <legend>{% trans "Edit Profile" %}</legend>
+	<h2>{{ user.get_full_name }}</h2>
+	<ul>
+ 	 <li>Username: {{ user.username }}</li>
+	 <li>Location: {{ user.location }}</li>
+	 <li>Company: {{ user.company }}</li>
+ 	 <li>Birth Date: {{ user.birthdate }}</li>
+ 	 <li>Role: {{ user.role }}</li>
+	</ul>
+	{{ form.media }}
+  	{% bootstrap_form form %}
+  	{% buttons %}
+        <div class="form-actions">
+            <button>{% trans "Save" %}</button>
+        </div>
+	{% endbuttons %}
+    </form>
+     </div>
+
+{% endblock %}

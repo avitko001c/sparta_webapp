@@ -36,6 +36,16 @@ EMAIL_HOST = 'localhost'
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = 1025 
 
+# django-scribbler
+# ------------------------------------------------------------------------------
+# Use {% load scribbler_tags staticfiles %} 
+# and load with <script src="{% static 'scribbler/js/scribbler-min.js' %}"></script> 
+# In templates use {% scribble 'header' %} CONTENT {% endscribble %} or 
+# {% scribble_field days_log 'happenings' %} to identify a field
+#  
+# https://pypi.org/project/django-scribbler-django2.0/ -- The 2.0 supported version
+INSTALLED_APPS += ['scribbler']
+
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites

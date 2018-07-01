@@ -5,6 +5,7 @@ argon2-cffi==18.1.0  # https://github.com/hynek/argon2_cffi
 whitenoise==3.3.1  # https://github.com/evansd/whitenoise
 redis>=2.10.5  # https://github.com/antirez/redis
 celery==3.1.26.post2  # pyup: <4.0  # https://github.com/celery/celery
+django-scribbler-django2.0==0.9.0
 
 # Django
 # ------------------------------------------------------------------------------
@@ -18,3 +19,4 @@ django-redis==4.9.0  # https://github.com/niwinz/django-redis
 # Django REST Framework
 djangorestframework==3.8.2  # https://github.com/encode/django-rest-framework
 coreapi==2.3.3  # https://github.com/core-api/python-client
+

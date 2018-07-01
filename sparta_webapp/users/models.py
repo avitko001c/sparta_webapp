@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
+from config.utils import PublicKeyParseError, pubkey_parse
 
 
 @python_2_unicode_compatible
@@ -14,7 +15,12 @@ class User(AbstractUser):
     location = models.CharField(_("User Location"), max_length=30, blank=True, null=True)
     company = models.CharField(_("User Company"), max_length=30, blank=True, null=True)
     birthdate = models.DateField(_("User Birthdate"), null=True, blank=True)
-    role = models.CharField(_("User Role"), max_length=255, null=True, blank=True)
+    role = models.ForeignKey(
+        "Role", related_name="roles",
+        on_delete=models.CASCADE,
+        null=True,
+        help_text='Set the role for the user'
+    )
 
     def __str__(self):
         return self.username
@@ -76,7 +82,7 @@ class UserKey(AbstractUserKey):
 
 
 class Role(models.Model):
-    user_role = models.CharField(max_length=255, blank=True)
+    user_role = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):  # __unicode__ for Python 2
         return 'Roles for users {}'.format(self.user_role)

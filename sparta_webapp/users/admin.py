@@ -108,7 +108,7 @@ class CustomUserAdmin(AuthUserAdmin):
     list_selected_related = 'userkey'
     form = MyUserChangeForm
     add_form = MyUserCreationForm
-    fieldsets = (('User Profile', {'fields': ('name', 'location', 'company', 'birthdate')}),) + AuthUserAdmin.fieldsets
+    fieldsets = (('User Profile', {'fields': ('name', 'location', 'company', 'birthdate', 'role')}),) + AuthUserAdmin.fieldsets
     list_display = (
         'username', 'name', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
     search_fields = ['name', 'email']

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load django_tables2 %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
@@ -29,8 +30,6 @@
 </div>
 <!-- End Action buttons -->
 {% endif %}
-
-
 </div>
 {% endblock content %}
 

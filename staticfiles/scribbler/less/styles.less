@@ -1,0 +1,109 @@
+/*
+ * django-scribbler
+ * Source: https://github.com/caktus/django-scribbler
+ * Docs: http://django-scribbler.readthedocs.org/
+ *
+ * Copyright 2012-2016, Caktus Consulting Group, LLC
+ * BSD License
+ *
+ */
+
+/* Variables
+======================== */
+@scribblerRed: #CD0000;
+@black: #000;
+@white: #fff;
+@gray: #555;
+@grayLighter: #eee;
+
+/* Generic styles
+======================== */
+body {
+    margin: 0;
+    background: @grayLighter;
+    &.login-home {
+        background: @gray;
+    }
+}
+
+@font-face {
+    font-family: 'cutiveregular';
+    src: url('../fonts/cutive-regular-webfont.eot');
+    src: url('../fonts/cutive-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/cutive-regular-webfont.woff') format('woff'),
+         url('../fonts/cutive-regular-webfont.ttf') format('truetype'),
+         url('../fonts/cutive-regular-webfont.svg#cutiveregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+span { font-weight: bold; }
+
+h1, h2 {
+    font-family: 'cutiveregular', Georgia, serif;
+    font-weight: normal;
+    font-size: 36px;
+    color: @black;
+}
+
+h1 { color: @black; }
+h2 { color: @scribblerRed; }
+
+p.lead {
+    font-family: 'cutiveregular', Georgia, serif;
+    font-weight: normal;
+}
+
+.content {
+    margin-top: 100px;
+}
+
+#page {
+    margin: 0 auto;
+    max-width: 979px;
+    position: relative;
+    width: 80%;
+    .scribbler-test {
+        padding: 20px;
+        background-color: @white;
+        border: 1px @grayLighter solid;
+        font-size: 15px;
+    }
+}
+
+/* Login form styles
+======================== */
+#login-content {
+    margin: 100px auto 20px;
+    text-align: center;
+    width: 100%;
+    .modal {
+        background-color: @white;
+        color: @gray;
+        border-radius: 8px;
+        margin: 0 auto;
+        padding: 40px 40px 10px   30px;
+        width: 275px;
+    }
+    form { padding-top: 15px; }
+    .errorlist {
+        list-style: none;
+        color: @white;
+    }
+    input[type=submit] {
+        font-weight: bold;
+        font-family: 'cutiveregular', Georgia, serif;
+    }
+
+}
+
+small {
+    text-align: center;
+    font-family: 'cutiveregular', Georgia, serif;
+    font-weight: normal;
+    margin: 50px auto 20px;
+    display: block;
+    color: @white;
+    font-size: 13px;
+    span:last-child { padding-left: 15px;}
+}

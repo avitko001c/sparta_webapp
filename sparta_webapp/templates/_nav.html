@@ -1,0 +1,30 @@
+{% comment %}
+	This is the nav bar for the site
+{% endcomment %}
+<header>
+    <div class="navbar {% block navbar_class %}navbar-expand-lg navbar-light bg-light{% endblock %}">
+        <div class="container">
+        {% block topbar %}
+            {% block site_brand %}
+		<a class="navbar-brand" href="{% url "home" %}">{{ SITE_NAME }}</a>
+	    {% endblock %}
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="fa fa-bars"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {% block nav %}
+                    <ul class="navbar-nav mr-auto">
+                        {% block nav_items %}
+			  <a class="nav-link" href="{% url 'search' %}"><i class="fa fa-search"></i> Search</a>
+			  <a class="nav-link" href=/docs><i class="fa fa-file-alt"></i> Docs</a>
+			{% endblock %}
+                    </ul>
+                {% endblock %}
+                {% block account_bar %}
+		   {% include "_account_bar.html" %}
+		{% endblock %}
+            </div>
+        {% endblock %}
+        </div>
+    </div>
+</header>
