@@ -14,7 +14,6 @@ __all__ = ['ChosenFieldMixin', 'ChosenChoiceField', 'ChosenMultipleChoiceField',
            'ChosenGroupChoiceField', 'TimeZoneField', 'ArraySelectMultiple', 'ChoiceArrayField']
 
 
-
 class ChosenFieldMixin(object):
 
     def __init__(self, *args, **kwargs):

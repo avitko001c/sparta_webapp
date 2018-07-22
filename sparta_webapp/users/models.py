@@ -1,3 +1,4 @@
+import uuid
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.db import models
@@ -27,6 +28,24 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
+
+
+@python_2_unicode_compatible
+class AbstractAPIKey(models.Model):
+    class Meta:
+        abstract = True
+        verbose_name_plural = _("API Keys")
+        ordering = ['-created']
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    name = models.CharField(max_length=50, unique=True)
+    key = models.CharField(max_length=40, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 @python_2_unicode_compatible
@@ -100,7 +119,6 @@ class AbstractUserAWSKey(models.Model):
             if not self.account:
                 self.account = "default"
 
-
     def clean(self, hash=None):
         import hashlib
         self.accesskey_secret = self.accesskey_secret.strip()
@@ -122,11 +140,16 @@ class AbstractUserAWSKey(models.Model):
         else:
             raise ValueError('Unknown hash type: {}'.format(hash))
 
+
 class UserKey(AbstractUserKey):
     pass
 
 
 class UserAWSKey(AbstractUserAWSKey):
+    pass
+
+
+class APIKey(AbstractAPIKey):
     pass
 
 

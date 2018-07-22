@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from uuid import uuid4
-from ...models import UserKey
+from sparta_webapp.users.models import UserKey
 
 
 class Command(BaseCommand):
