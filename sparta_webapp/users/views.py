@@ -4,6 +4,8 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 from django.forms import modelform_factory
 from .widgets import CalendarWidget
 from .models import User
+from .forms import ProfileForm
+from bootstrap_datepicker_plus import DatePickerInput
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -23,13 +25,8 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
-    #fields = ["name", "location", "company", "birthdate"]
     template_name_suffix = '_update_form'
-    
-    form_class = modelform_factory(User, fields=('name', 'location', 'company', 'birthdate'),
-                   widgets={'birthdate': CalendarWidget()}
-                   )
-
+    form_class = ProfileForm
     model = User
 
     def get_success_url(self):

@@ -1,10 +1,15 @@
 from django import forms
 from django.contrib import admin
+from django.contrib.admin import site
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from sparta_webapp.users.models import User, UserKey, Role
+from sparta_webapp.users.models import User, UserAWSKey, UserKey, Role
 from config.utils import normalize_user_key as normalize
 from django.utils.translation import ugettext_lazy as _
+from djadmin2.site import djadmin2_site
+from djadmin2.types import ModelAdmin2
+import adminactions.actions as actions
+
 
 
 class MyUserChangeForm(UserChangeForm):
@@ -29,6 +34,10 @@ class MyUserCreationForm(UserCreationForm):
 
         raise forms.ValidationError(self.error_messages['duplicate_username'])
 
+class UserAdmin2(ModelAdmin2):
+    # Replicates the traditional admin for django.contrib.auth.models.User
+    create_form_class = MyUserCreationForm
+    update_form_class = MyUserChangeForm
 
 class UserKeyInLine(admin.TabularInline):
     model = UserKey
@@ -87,6 +96,24 @@ class UserKeyAdmin(admin.ModelAdmin):
     ]
 
 
+class UserAWSKeyAdmin(admin.ModelAdmin):
+    list_display = [
+        'account',
+        'user',
+        'fingerprint',
+        'created',
+        'last_modified',
+    ]
+    searchfields = [
+        'user__username',
+    ]
+    readonlyfields = [
+        'fingerprint',
+        'created',
+        'last_modified',
+    ]
+
+
 class RoleAdmin(admin.ModelAdmin):
     fields = ['user_role']
     list_display = ['user_role']
@@ -127,3 +154,6 @@ class CustomUserAdmin(AuthUserAdmin):
 
 admin.site.register(Role, RoleAdmin)
 admin.site.register(UserKey, UserKeyAdmin)
+admin.site.register(UserAWSKey, UserAWSKeyAdmin)
+djadmin2_site.register(User, UserAdmin2)
+actions.add_to_site(site)

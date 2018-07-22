@@ -1,0 +1,24 @@
+{% extends "account/base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block body_class %}account account-sshkeys{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block head_title %}{% trans "SSH Keys" %}{% endblock %}
+
+{% block content %}
+
+    <form method="POST" action="{% url "account_sshkeys" %}">
+        {% csrf_token %}
+        <legend>{% trans "SSH Keys" %}</legend>
+	<h2>{{ user.get_full_name }}</h2>
+	{{ form.media }}
+  	{% bootstrap_form form %}
+	<input type="submit" value="Save" />
+    </form>
+{% endblock %}

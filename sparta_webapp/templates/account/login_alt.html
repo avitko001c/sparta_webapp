@@ -1,0 +1,127 @@
+{% load staticfiles %} 
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block css %}
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{% static "plugins/ionicons/css/ionicons.min.css" %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static "css/AdminLTE.min.css" %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{% static "css/skins/_all-skins.min.css" %}">
+  <!--toastr css-->
+  <link rel="stylesheet" href="{% static "plugins/toastr/toastr.css" %}">
+{% endblock %}
+
+
+{% block inner %}
+
+<h1>{% trans "Sign In" %}</h1>
+
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<p>{% blocktrans with site.name as site_name %}Please sign in with one
+of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+<div class="socialaccount_ballot">
+
+  <ul class="socialaccount_providers">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+
+  <div class="login-or">{% trans 'or' %}</div>
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+{% endif %}
+
+<form class="login" method="POST" action="{% url 'login' %}">
+  {% csrf_token %}
+  {{ form|crispy }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+</form>
+
+{% endblock %}
+{% block js %}
+<script src="{% static "plugins/jQuery/jquery-2.2.3.min.js" %}"></script>
+<script src="{% static "plugins/jquery-ui/jquery-ui.min.js" %}"></script>
+
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+  var path = window.location.pathname;
+  $("[href='"+ path + "']").parent("li").addClass('active')
+</script>
+
+<script src="{% static "plugins/bootstrap/js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/app.min.js" %}"></script>
+<script src="{% static "plugins/toastr/toastr.min.js" %}"></script>
+
+<script>
+function getCookie(name) {
+	var cookieValue = null;
+	if (document.cookie && document.cookie !== '') {
+		var cookies = document.cookie.split(';');
+		for (var i = 0; i < cookies.length; i++) {
+			var cookie = jQuery.trim(cookies[i]);
+			// Does this cookie string begin with the name we want?
+			if (cookie.substring(0, name.length + 1) === (name + '=')) {
+				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				break;
+			}
+		}
+	}
+	return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
+	// these HTTP methods do not require CSRF protection
+	return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+	beforeSend: function(xhr, settings) {
+		if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+			xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		}
+	}
+});
+
+
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
+</script>
+{%endblock%}

@@ -1,5 +1,12 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
 {% load scribbler_tags staticfiles %}
+
+<!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
@@ -9,10 +16,15 @@
     <meta name="author" content="{% block meta-author %}{% endblock %}">
     <meta name="keywords" content="{% block meta-keywords %}{% endblock %}">
     <link href="{% static 'scribbler/img/favicon.png' %}" rel="shortcut icon">
-    {% block extra-meta %}{% endblock %}
+    {% block extra-meta %}
+
+    {{ BOOTSTRAP_CSS|safe }}
+    {{ BOOTSTRAP_THEME_CSS|safe }}
     <link rel="stylesheet" media="all" href="{% static 'scribbler/css/scribbler.css' %}">
     <link rel="stylesheet/less" type="text/css" media="all" href="{% static 'scribbler/less/styles.less' %}">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.6.1/less.min.js"></script>
+
+    {% endblock %}
 </head>
 <body {% if not user.is_authenticated %}class="login-home"{% endif %}>
     <div class="content">
@@ -51,5 +63,11 @@
     </div>
     <script src="{% url 'jsi18n' %}"></script>
     <script src="{% static 'scribbler/js/scribbler-min.js' %}"></script>
+    <!-- Your stuff: Third-party javascript libraries go here -->
+	    {{ BOOTSTRAP_JQ_JS|safe }}
+            {{ BOOTSTRAP_JS|safe }}
+      <!-- place project specific Javascript in this file -->
+      <script src="{% static "django_tables2_column_shifter/js/django_tables2_column_shifter.min.js" %}"></script>
+      <script src="{% static 'js/project.js' %}"></script>
 </body>
 </html>

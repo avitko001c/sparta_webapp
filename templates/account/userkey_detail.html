@@ -1,0 +1,30 @@
+{% extends "account/base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block body_class %}account account-sshkeys{% endblock %}
+
+{% block head_title %}{% trans "SSH Keys" %}{% endblock %}
+
+{% if action == 'add' %}
+<h1>Add Key</h1>
+{% else %}
+<h1>Edit Key</h1>
+{% endif %}
+
+{% block content %}
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="" method="post">
+{% csrf_token %}
+<table>
+{% bootstrap_form form %}
+</table>
+<input type="submit" value="Save" />
+</form>
+{% endblock %}

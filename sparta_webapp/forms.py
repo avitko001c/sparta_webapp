@@ -2,6 +2,8 @@
 
 from django import forms
 from sparta_webapp.users.models import User, UserKey
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 
 class UserForm(forms.ModelForm):
@@ -24,3 +26,12 @@ class UserKeyForm(forms.ModelForm):
                 'placeholder': "Paste in the contents of your public key file here",
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(UserKeyForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-userkeyForm'
+        self.helper.form_class = 'blueForms'
+        self.helper.form_method = 'post'
+        self.helper.form_action = 'submit'
+        self.helper.add_input(Submit('submit', 'Add Key'))

@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block body %}
+    <div class="subnav-container">
+        {% block subnav %}
+        {% endblock %}
+        <section>
+            {% block content %}
+            {% endblock %}
+        </section>
+    </div>
+{% endblock %}

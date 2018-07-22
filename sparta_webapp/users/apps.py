@@ -7,10 +7,6 @@ class UsersAppConfig(AppConfig):
     verbose_name = _("Users")
 
     def ready(self):
-        """Override this to put in:
-            Users system checks
-            Users signal registration
-        """
         try:
             import sparta_webapp.users.signals  # noqa F401
         except ImportError:
