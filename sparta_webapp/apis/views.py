@@ -1,32 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from django.http import HttpResponseRedirect
-from django.views.decorators.http import require_http_methods, require_GET
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
-from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse
-from django.utils.http import is_safe_url
-from django_tables2 import SingleTableView
-from django import forms
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.shortcuts import get_object_or_404, redirect, render, render_to_response
-from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
-from django.views.generic.edit import UpdateView, DeleteView, CreateView, ProcessFormView
-from django.views.generic import FormView
-from django.views.generic.detail import SingleObjectMixin
-from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework import views, status
-from braces import views as braces_view
 from .serializers import UserSerializer, SSHKeySerializer, MessageSerializer
 from sparta_webapp.users.models import UserKey, User
+from sparta_webapp.common.models import ServerGroup,ServerInfor,CommandsSequence,Credential
+from .serializers import ServerGroupSerializer, ServerInforSerializer, CommandsSequenceSerializer, CredentialSerializer
 
 ### API ViewSets ###
 
@@ -86,4 +67,23 @@ class UserDetail(generics.RetrieveAPIView):
     Retrieve a User
     """
     queryset = User.objects.all()
+
+
+class ServerGroupViewSet(viewsets.ModelViewSet):
+    queryset = ServerGroup.objects.all()
+    serializer_class = ServerGroupSerializer
+
+
+class ServerInforViewSet(viewsets.ModelViewSet):
+    queryset = ServerInfor.objects.all()
+    serializer_class = ServerInforSerializer
+
+class CredentialViewSet(viewsets.ModelViewSet):
+    queryset = Credential.objects.all()
+    serializer_class = CredentialSerializer
+
+
+class CommandsSequenceViewSet(viewsets.ModelViewSet):
+    queryset = CommandsSequence.objects.all()
+    serializer_class = CommandsSequenceSerializer
     serializer_class = UserSerializer

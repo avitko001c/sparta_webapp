@@ -1,4 +1,5 @@
 from admin_tools.dashboard.modules import DashboardModule
+from material.frontend import Module
 
 
 def format_bytes(bytes):

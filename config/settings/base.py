@@ -58,15 +58,21 @@ JET_APPS = [
     'jet.dashboard',
     'jet',
 ]
+ADMIN_APPS = [
+    'djadmin2',
+    'admin_tools',
+    'rest_framework',
+]
 TEMPLATE_APPS = [
-    'bootstrap_toolkit',
     'bootstrap4',
-    'bootstrapform',
-    'djedi',
+    'bootstrap_toolkit',
+    'bootstrapform_jinja',
+    'bootstrap_datepicker_plus',
 ]
 DJANGO_APPS = [
     'django_assets',
     'django_tables2',
+    'django_tables2_column_shifter',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -75,6 +81,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'django.contrib.humanize', # Handy template tags
+    'adminactions',
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
@@ -82,14 +89,13 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'rest_framework',
     'rest_framework.authtoken',
     'django_bootstrap_base_template',
-    'django_addview',
 ]
 LOCAL_APPS = [
-    'sparta_webapp.users.apps.UsersAppConfig',
+    'guardian',
     # Your stuff: custom apps go here
+    'sparta_webapp.users.apps.UsersAppConfig',
     'sparta_webapp.apis.apps.ApiAppConfig',
     'sparta_webapp.eventlog.apps.EventLogAppConfig',
     'sparta_webapp.dayslog.apps.DaysLogAppConfig',
@@ -103,7 +109,15 @@ SOCIAL_APPS = [
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = JET_APPS + DJANGO_APPS + TEMPLATE_APPS + THIRD_PARTY_APPS + LOCAL_APPS + SOCIAL_APPS
+INSTALLED_APPS = JET_APPS + ADMIN_APPS + DJANGO_APPS + TEMPLATE_APPS + THIRD_PARTY_APPS + LOCAL_APPS + SOCIAL_APPS
+INSTALLED_APPS += ('djadmin2.themes.djadmin2theme_bootstrap3',)
+INSTALLED_APPS.append('django.forms')
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+ADMIN2_THEME_DIRECTORY = "djadmin2theme_bootstrap3"
 
 # SOCIALACCOUNT PROVIDERS
 # ------------------------------------------------------------------------------
@@ -205,6 +219,7 @@ MIGRATION_MODULES = {
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = 'users.User'
@@ -429,3 +444,25 @@ DEFAULT_HASH = "md5"
 
 KONG_ADMIN_URL = 'http://localhost:8001'
 KONG_ADMIN_SIMULATOR = False 
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+BOOTSTRAP_SETTINGS = {
+    # enable theme selection
+    'enable_themes': True,
+
+    # Use a CDN when DEBUG is disabled
+    'use_cdn': True,
+
+    # Default theme name
+    'theme': 'bootstrap',
+
+    # CDN URL format for Boostrap CSS
+    'css_cdn': '//maxcdn.bootstrapcdn.com/bootstrap/{bsver}/css/bootstrap.min.css',
+
+    # CDN URL format for Boostrap JS
+    'js_cdn': '//maxcdn.bootstrapcdn.com/bootstrap/{bsver}/js/bootstrap.min.js',
+
+    # CDN URL format for Boostswatch CSS
+    'bootswatch_cdn': '//maxcdn.bootstrapcdn.com/bootswatch/{bsver}/{theme}/bootstrap.min.css'
+}
