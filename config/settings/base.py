@@ -6,6 +6,10 @@ import os
 import datetime
 import environ
 
+USERNAME_MIN_LENGTH = "30"
+PASSWORD_MIN_LENGTH = "8"
+STATUS_MAX_LENGTH = "255"
+
 ROOT_DIR = environ.Path(__file__) - 3  # (sparta_webapp/config/settings/base.py - 3 = sparta_webapp/)
 APPS_DIR = ROOT_DIR.path('sparta_webapp')
 
@@ -28,6 +32,7 @@ TIME_ZONE = 'UTC'
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
+USE_SITES = True
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
 USE_I18N = True
@@ -96,6 +101,7 @@ LOCAL_APPS = [
     'guardian',
     # Your stuff: custom apps go here
     'sparta_webapp.users.apps.UsersAppConfig',
+    'sparta_webapp.common.apps.CommonAppConfig',
     'sparta_webapp.apis.apps.ApiAppConfig',
     'sparta_webapp.eventlog.apps.EventLogAppConfig',
     'sparta_webapp.dayslog.apps.DaysLogAppConfig',
@@ -290,6 +296,7 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR('media'))
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
+AVATAR_DIR = '/media/avatars/'
 
 # TEMPLATES
 # ------------------------------------------------------------------------------

@@ -2,7 +2,15 @@
 from __future__ import unicode_literals
 
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
 
-class CommonConfig(AppConfig):
-    name = 'common'
+class CommonAppConfig(AppConfig):
+    name = "sparta_webapp.common"
+    verbose_name = _("Common")
+
+    def ready(self):
+        try:
+            import sparta_webapp.common.signals  # noqa F401
+        except ImportError:
+            pass

@@ -8,6 +8,24 @@ from django.utils.encoding import python_2_unicode_compatible
 from config.utils import PublicKeyParseError, pubkey_parse
 
 
+class Avatar(models.Model):
+    """Profile avatar, stores height and width."""
+    image = models.ImageField(upload_to=AVATAR_DIR, null=True,
+                              blank=True, height_field='height',
+                              width_field='width', verbose_name=_('image'))
+    height = models.PositiveSmallIntegerField(null=True, blank=True,
+                                              verbose_name=_('height'))
+    width = models.PositiveSmallIntegerField(null=True, blank=True,
+                                             verbose_name=_('width'))
+
+    class Meta:
+        verbose_name = _('avatar')
+        verbose_name_plural = _('avatars')
+
+    def __unicode__(self):
+        return self.image.name
+
+
 @python_2_unicode_compatible
 class User(AbstractUser):
     # First Name and Last Name do not cover name patterns
@@ -16,6 +34,13 @@ class User(AbstractUser):
     location = models.CharField(_("User Location"), max_length=30, blank=True, null=True)
     company = models.CharField(_("User Company"), max_length=30, blank=True, null=True)
     birthdate = models.DateField(_("User Birthdate"), null=True, blank=True)
+    avatar = models.ForeignKey(
+        'Avatar', related_name='avatar', 
+        on_delete=models.CASCADE, 
+        null=True,
+        verbose_name=_('avatar'), 
+        help_text='Users Avatar to use on site',
+    )
     role = models.ForeignKey(
         "Role", related_name="roles",
         on_delete=models.CASCADE,

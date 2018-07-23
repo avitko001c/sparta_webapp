@@ -3,14 +3,15 @@
 import datetime
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_http_methods, require_GET
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.http import is_safe_url
 from django_tables2 import SingleTableView
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.conf import settings
 from django.shortcuts import get_object_or_404, redirect, render, render_to_response
 from django.views.generic.base import TemplateResponseMixin, View
@@ -28,6 +29,23 @@ from sparta_webapp.dayslog.models import DaysLog
 
 
 ### Class Based Views ###
+
+class Index(LoginRequiredMixin,PermissionRequiredMixin,TemplateView):
+    template_name = 'webterminal/index.html'
+    permission_required = 'common.can_connect_serverinfo'
+    raise_exception = False
+    login_url = reverse_lazy('admin:login')
+
+    def get_context_data(self, **kwargs):
+        context = super(Index, self).get_context_data(**kwargs)
+        try:
+            groups = Permission.objects.get(user__username=self.request.user.username)
+        except ObjectDoesNotExist:
+            logger.error('user:{0} have not permission to visit webterminal!'.format(self.request.user.username))
+            return context
+        context['server_groups'] = ServerGroup.objects.filter(name__in=[group.name for group in groups.groups.all()])
+        return context
+
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "base.html"
@@ -53,6 +71,7 @@ class SearchView(TemplateView):
         ctx = super(SearchView, self).get_context_data(**kwargs)
         ctx.update({})
         return ctx
+
 
 class UserKeyListView(SingleTableView):
     model = UserKey

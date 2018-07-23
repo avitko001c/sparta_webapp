@@ -17,7 +17,7 @@
     <div id="fade-box">
 
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
+<form class="login" method="POST" action="{% url 'login' %}">
   {% if user.is_authenticated %}
         <a style="color: red;">
             {% blocktrans trimmed %}
