@@ -296,7 +296,7 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR('media'))
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
-AVATAR_DIR = '/media/avatars/'
+AVATAR_DIR = 'media/avatars/'
 
 # TEMPLATES
 # ------------------------------------------------------------------------------

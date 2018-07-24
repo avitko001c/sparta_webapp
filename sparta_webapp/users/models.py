@@ -8,9 +8,10 @@ from django.utils.encoding import python_2_unicode_compatible
 from config.utils import PublicKeyParseError, pubkey_parse
 
 
+@python_2_unicode_compatible
 class Avatar(models.Model):
     """Profile avatar, stores height and width."""
-    image = models.ImageField(upload_to=AVATAR_DIR, null=True,
+    image = models.ImageField(upload_to=settings.AVATAR_DIR, null=True,
                               blank=True, height_field='height',
                               width_field='width', verbose_name=_('image'))
     height = models.PositiveSmallIntegerField(null=True, blank=True,
@@ -42,7 +43,7 @@ class User(AbstractUser):
         help_text='Users Avatar to use on site',
     )
     role = models.ForeignKey(
-        "Role", related_name="roles",
+        "Role", related_name="role",
         on_delete=models.CASCADE,
         null=True,
         help_text='Set the role for the user'

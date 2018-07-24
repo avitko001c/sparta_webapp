@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin import site
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from sparta_webapp.users.models import User, UserAWSKey, UserKey, Role
+from sparta_webapp.users.models import User, UserAWSKey, UserKey, Role, Avatar
 from config.utils import normalize_user_key as normalize
 from django.utils.translation import ugettext_lazy as _
 from djadmin2.site import djadmin2_site
@@ -73,6 +73,36 @@ class UserKeyInLine(admin.TabularInline):
             return 0
         return extra
 
+class UserAWSKeyInLine(admin.TabularInline):
+    model = UserAWSKey
+    can_delete = False
+    verbose_name_plural = _('UserAWSKey')
+    fk_name = 'user'
+    list_display = [
+        'account',
+        'user',
+        'fingerprint',
+        'created',
+        'last_modified',
+    ]
+    searchfields = [
+        'user__username',
+    ]
+    readonlyfields = [
+        'fingerprint',
+        'created',
+        'last_modified',
+    ]
+
+    def get_extra(self, request, obj=None, **kwargs):
+        """If there is no keys defined return only
+        one extra form to use to add one otherwise
+        only show the defined keys and use the add
+        feature to create more"""
+        extra = 1
+        if obj:
+            return 0
+        return extra
 
 class UserKeyAdmin(admin.ModelAdmin):
     list_display = [
@@ -125,17 +155,29 @@ class RoleAdmin(admin.ModelAdmin):
     formfield_overrides = {}
 
 
+class AvatarAdmin(admin.ModelAdmin):
+    fields = ['image', 'height', 'width']
+    list_display = ['image', 'height', 'width']
+    list_selected_related = ('image')
+    model = Avatar
+    can_delete = True
+    verbose_name_plural = _("Avatar")
+    fk_name = 'image'
+    formfield_overrides = {}
+
+
 @admin.register(User)
 class CustomUserAdmin(AuthUserAdmin):
     """This is my Custom UserAdmin that is displayed in
     the Django Admin console"""
     inlines = [
         UserKeyInLine,
+        UserAWSKeyInLine, 
     ]
     list_selected_related = 'userkey'
     form = MyUserChangeForm
     add_form = MyUserCreationForm
-    fieldsets = (('User Profile', {'fields': ('name', 'location', 'company', 'birthdate', 'role')}),) + AuthUserAdmin.fieldsets
+    fieldsets = (('User Profile', {'fields': ('name', 'location', 'company', 'birthdate', 'role', 'avatar')}),) + AuthUserAdmin.fieldsets
     list_display = (
         'username', 'name', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
     search_fields = ['name', 'email']
@@ -151,8 +193,13 @@ class CustomUserAdmin(AuthUserAdmin):
         """Return True if the module permissions are valid for the User"""
         return True
 
+admin.site.unregister(User)
 
+AuthUserAdmin.list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
+
+admin.site.register(User, CustomUserAdmin)
 admin.site.register(Role, RoleAdmin)
+admin.site.register(Avatar, AvatarAdmin)
 admin.site.register(UserKey, UserKeyAdmin)
 admin.site.register(UserAWSKey, UserAWSKeyAdmin)
 djadmin2_site.register(User, UserAdmin2)

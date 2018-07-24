@@ -48,7 +48,7 @@ class Index(LoginRequiredMixin,PermissionRequiredMixin,TemplateView):
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
-    template_name = "base.html"
+    template_name = "pages/home1.html"
 
     def get(self, request):
         context = self.get_context_data(request)

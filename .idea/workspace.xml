@@ -4,45 +4,12 @@
     <list default="true" id="0e537467-5c80-4ec8-a635-a3bd665739d2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/apis/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/apis/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/apis/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/apis/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/apis/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/apis/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/modules.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/modules.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_highlight-hard_100_007fff_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_highlight-hard_100_007fff_1x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_highlight-hard_100_fffa90_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_highlight-hard_100_fffa90_1x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_highlight-soft_100_2f93fa_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_highlight-soft_100_2f93fa_1x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_inset-soft_100_007fff_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/images/ui-bg_inset-soft_100_007fff_1x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.css" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.structure.css" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.structure.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.structure.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.structure.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.theme.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.theme.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/static/jquery-ui/jquery-ui.theme.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/account/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/templates/account/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/account/userkey_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/templates/account/userkey_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparta_webapp/common/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/common/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/base.old" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/base.pinax" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/pages/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/templates/pages/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/pages/home1.html" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/templates/pages/home1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/templates/users/user_update_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/templates/users/user_update_form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sparta_webapp/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/users/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/users/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/users/apps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sparta_webapp/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/users/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sparta_webapp/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparta_webapp/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/users/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sparta_webapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sparta_webapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/images/ui-bg_highlight-hard_100_007fff_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/images/ui-bg_highlight-hard_100_007fff_1x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/images/ui-bg_highlight-hard_100_fffa90_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/images/ui-bg_highlight-hard_100_fffa90_1x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/images/ui-bg_highlight-soft_100_2f93fa_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/images/ui-bg_highlight-soft_100_2f93fa_1x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/images/ui-bg_inset-soft_100_007fff_1x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/images/ui-bg_inset-soft_100_007fff_1x100.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,13 +25,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sparta_webapp/apis/models.py">
+        <entry file="file://$PROJECT_DIR$/sparta_webapp/users/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-              <folding>
-                <element signature="e#25#53#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -86,7 +50,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/sparta_webapp/admin.py" />
-        <option value="$PROJECT_DIR$/sparta_webapp/users/models.py" />
         <option value="$PROJECT_DIR$/sparta_webapp/fields.py" />
         <option value="$PROJECT_DIR$/sparta_webapp/users/newadmin.py" />
         <option value="$PROJECT_DIR$/sparta_webapp/users/admin.py" />
@@ -105,6 +68,8 @@
         <option value="$PROJECT_DIR$/config/urls.py" />
         <option value="$PROJECT_DIR$/sparta_webapp/apis/views.py" />
         <option value="$PROJECT_DIR$/sparta_webapp/apis/models.py" />
+        <option value="$PROJECT_DIR$/sparta_webapp/users/models.py" />
+        <option value="$PROJECT_DIR$/sparta_webapp/users/forms.py" />
       </list>
     </option>
   </component>
@@ -139,7 +104,7 @@
               <item name="sparta_webapp" type="b2602c69:ProjectViewProjectNode" />
               <item name="sparta_webapp" type="462c0819:PsiDirectoryNode" />
               <item name="sparta_webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="apis" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sparta_webapp" type="b2602c69:ProjectViewProjectNode" />
@@ -287,7 +252,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="807" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24305555" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -325,11 +289,11 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sparta_webapp/apis/models.py</url>
-          <line>2</line>
+          <line>1</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/sparta_webapp/views.py</url>
-          <line>5</line>
+          <line>3</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -342,16 +306,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sparta_webapp/tables.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#25#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -567,13 +521,6 @@
     <entry file="file://$PROJECT_DIR$/sparta_webapp/eventlog/admin.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/sparta_webapp/users/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-609">
-          <caret line="4" column="15" selection-start-line="4" selection-end-line="4" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sparta_webapp/eventlog/stats.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -595,13 +542,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sparta_webapp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
@@ -685,6 +625,30 @@
           <folding>
             <element signature="e#25#53#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparta_webapp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparta_webapp/users/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparta_webapp/users/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
         </state>
       </provider>
     </entry>

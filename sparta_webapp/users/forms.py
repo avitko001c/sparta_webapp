@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model, forms
-from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django import forms as dforms
 from bootstrap_datepicker_plus import DatePickerInput
@@ -11,7 +10,7 @@ User = get_user_model()
 class ProfileForm(dforms.ModelForm):
     class Meta:
         model = User
-        fields = ["name", "location", "company", "birthdate"]
+        fields = ["name", "location", "company", "birthdate", "avatar"]
         widgets = {
                 'birthdate': DatePickerInput(
                     options={

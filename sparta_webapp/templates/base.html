@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% load static i18n %}<!DOCTYPE html>
+{% load scribbler_tags staticfiles %}
 <html>
 <head>
 	{% load staticfiles %} 
@@ -16,6 +17,8 @@
   <link rel="stylesheet" href="{% static "plugins/ionicons/css/ionicons.min.css" %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static "css/AdminLTE.min.css" %}">
+    {{ BOOTSTRAP_CSS|safe }}
+    {{ BOOTSTRAP_THEME_CSS|safe }}
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{% static "css/skins/_all-skins.min.css" %}">
@@ -165,7 +168,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="" class="btn btn-default btn-flat">{%trans 'Profile' %}</a>
+                  <a href="{% url 'users:update' %}" class="btn btn-default btn-flat">{%trans 'Profile' %}</a>
                 </div>
                 <div class="pull-right">
 		  {% if request.user.is_authenticated %}
@@ -195,7 +198,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            {% if perms.common.can_connect_serverinfo %}<li class=""><a href="{% url 'home' %}"><i class="fa fa-laptop"></i> {%trans 'Puppet ENC' %}</a></li>{% endif%}
+            {% if perms.common.can_connect_serverinfo %}<li class=""><a href="{% url 'home' %}"><i class="fa fa-desktop"></i> {%trans 'Puppet ENC' %}</a></li>{% endif%}
             {% if perms.common.can_connect_serverinfo %}<li class=""><a href="{% url 'index' %}"><i class="fa fa-laptop"></i> {%trans 'webterminal' %}</a></li>{% endif%}
           </ul>
         </li>
